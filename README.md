@@ -1,6 +1,8 @@
 # Black-Profiler-beta
 Black Profiler - Find all relevant information of a person through his/her image using OSINT and ML techniques
 
+![alt text](https://raw.githubusercontent.com/vanshwassan/Black-Profiler-beta/master/blackprofiler.png)
+
 # Idea
 My main idea behind this project was to mix the concepts of OSINT(Open Source Intelligence), Web Scraping and Machine Learning to make an effective profiler to find anyone's information just by his/her image file.
 
