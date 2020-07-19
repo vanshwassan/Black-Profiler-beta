@@ -4,12 +4,15 @@ from bs4 import BeautifulSoup
 def scrapeInstagram(soup1):
     insta_Data = []
     main_Data = []
+    main_Profile = []
     for meta in soup1.find_all(name="meta", attrs={"property": "og:title"}):
         main_Data = meta['content'].split()
     for meta in soup1.find_all(name="meta", attrs={"property": "og:description"}):
         insta_Data = meta['content'].split()
+    for meta in soup1.find_all(name="meta", attrs={"property": "og:url"}):
+        main_Profile = meta['content'].split()
 
-
+    url = main_Profile[0]
     followers = insta_Data[0]
     following = insta_Data[2]
     posts = insta_Data[4]
@@ -23,6 +26,7 @@ def scrapeInstagram(soup1):
     print("\nNo OF POSTS        :   ", posts)
     print("\nNo OF FOLLOWERS    :   ", followers)
     print("\nNo OF FOLLOWING    :   ", following)
+    print("\nPROFILE LINK       :   ", url)
 
 # Driver Code
 if __name__ == '__main__':
