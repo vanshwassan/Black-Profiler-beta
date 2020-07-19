@@ -89,59 +89,56 @@ def predict(X_img_path, knn_clf=None, model_path=None, distance_threshold=0.6):
 
 def show_prediction_labels_on_image(img_path, predictions):
     """
-    Shows the face recognition results visually.
-    :param img_path: path to image to be recognized
-    :param predictions: results of the predict function
-    :return:
+    predict and draws a box and saves the image as out.jpg
     """
     pil_image = Image.open(img_path).convert("RGB")
     draw = ImageDraw.Draw(pil_image)
 
     for name, (top, right, bottom, left) in predictions:
-        # Draw a box around the face using the Pillow module
+        # PIL draw box
         draw.rectangle(((left, top), (right, bottom)), outline=(0, 0, 255))
 
-        # There's a bug in Pillow where it blows up with non-UTF-8 text
-        # when using the default bitmap font
+        
         name = name.encode("UTF-8")
 
-        # Draw a label with a name below the face
+        # Add name
         text_width, text_height = draw.textsize(name)
         draw.rectangle(((left, bottom - text_height - 10), (right, bottom)), fill=(0, 0, 255), outline=(0, 0, 255))
         draw.text((left + 6, bottom - text_height - 5), name, fill=(255, 255, 255, 255))
 
-    # Remove the drawing library from memory as per the Pillow docs
     del draw
 
-    # Display the resulting image
+    # Displaying and saving the out.jpg
     pil_image.show()
     pil_image.save("out.jpg", "JPEG", quality=80, optimize=True, progressive=True)
 
 
 if __name__ == "__main__":
-    # STEP 1: Train the KNN classifier and save it to disk
+    # Train the KNN classifier and save it to disk
     # Once the model is trained and saved, you can skip this step next time.
     print("Training the Model...")
     classifier = train("train_dir", model_save_path="trained_knn_model.clf", n_neighbors=2)
     print("Training complete!")
 
 
-    # STEP 2: Using the trained classifier, make predictions for unknown images
+    # Using the trained classifier, make predictions for unknown images
     for image_file in os.listdir("test"):
         full_file_path = os.path.join("test", image_file)
 
         print("Looking for faces in {}".format(image_file))
 
         # Find all people in the image using a trained classifier model
-        # Note: You can pass in either a classifier file name or a classifier model instance
+       
         predictions = predict(full_file_path, model_path="trained_knn_model.clf")
 
-        # Print results on the console
+        # result on console
         for name, (top, right, bottom, left) in predictions:
             print("- Found {} at ({}, {})".format(name, left, top))
 
-        # Display results overlaid on an image
+        # result on img
         show_prediction_labels_on_image(os.path.join("test", image_file), predictions)
+        
+        # Dumps the output username in a text file for the profiler to use it as an Input.
 file1 = open("usernames.txt","w")
 file1.write(name)
 file1.close()
