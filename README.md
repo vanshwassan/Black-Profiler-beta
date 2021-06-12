@@ -32,7 +32,7 @@ python facerecog.py
 Predict the result and then start profiler.py to scan that account. <br>
 ```
 python profiler.py
-  
+  ```
 Special Thanks <br>
 face_recognition library - https://github.com/ageitgey/face_recognition <br>
 Instagram-Scrapper - https://github.com/arc298/instagram-scraper 
