@@ -32,8 +32,6 @@ python facerecog.py
 Predict the result and then start profiler.py to scan that account. <br>
 ```
 python profiler.py
-```
-<b>This whole project was done in one night as a part of Hackathon so if there are any bugs, just report them.<b> <br>
   
 Special Thanks <br>
 face_recognition library - https://github.com/ageitgey/face_recognition <br>
